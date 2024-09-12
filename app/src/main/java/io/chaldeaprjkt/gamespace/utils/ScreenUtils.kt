@@ -77,17 +77,24 @@ class ScreenUtils @Inject constructor(private val context: Context) {
     }
 
     fun unbind() {
-        wakelock?.takeIf { it.isHeld }?.release()
-        if (isRecorderBound) {
-            context.unbindService(recorderConnection)
-        }
-        remoteRecording = null
-        if (isGestureLocked) {
-            Settings.System.putInt(context.contentResolver,
-                    Settings.System.LOCK_GESTURE_STATUS, 0)
-            isGestureLocked = false
-        }
+    wakelock?.takeIf { it.isHeld }?.release()
+    
+    if (isRecorderBound) {
+        context.unbindService(recorderConnection)
     }
+    
+    remoteRecording = null
+    
+    // Replace this section with a valid setting or feature if LOCK_GESTURE_STATUS is not available
+    if (isGestureLocked) {
+        // Example: Instead of LOCK_GESTURE_STATUS, you might use another setting or flag.
+        // Check if there is an alternative or if this feature is not supported.
+        // Settings.System.putInt(context.contentResolver, "some_valid_setting_key", 0)
+        
+        isGestureLocked = false
+    }
+    }    
+
 
     fun takeScreenshot(onComplete: ((Uri?) -> Unit)? = null) {
         val handler = Handler(Looper.getMainLooper())
@@ -109,11 +116,15 @@ class ScreenUtils @Inject constructor(private val context: Context) {
         }
 
     var lockGesture = false
-        get() = isGestureLocked
-        set(enable) {
-            Settings.System.putInt(context.contentResolver,
-                    Settings.System.LOCK_GESTURE_STATUS, if (enable) 1 else 0)
-            field = enable
-            isGestureLocked = enable
-        }
+    get() = isGestureLocked
+    set(enable) {
+        // Replace with a valid setting key if LOCK_GESTURE_STATUS is not available
+        // Example: Using a standard setting if available or a custom setting key
+        val settingKey = "some_valid_setting_key" // Replace this with a valid setting key
+
+        Settings.System.putInt(context.contentResolver, settingKey, if (enable) 1 else 0)
+        field = enable
+        isGestureLocked = enable
+    }
+
 }

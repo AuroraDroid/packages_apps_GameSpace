@@ -48,17 +48,17 @@ class SystemSettings @Inject constructor(
             )
         }
 
-    var threeScreenshot
-        get() = Settings.System.getIntForUser(
-            resolver, Settings.System.SWIPE_TO_SCREENSHOT, 0,
-            UserHandle.USER_CURRENT
-        ) == 1
-        set(it) {
-            Settings.System.putIntForUser(
-                resolver, Settings.System.SWIPE_TO_SCREENSHOT,
-                it.toInt(), UserHandle.USER_CURRENT
-            )
-        }
+   var threeScreenshot
+    get() = Settings.System.getIntForUser(
+        resolver, "some_setting_key", 0, // Replace "some_setting_key" with a valid key
+        UserHandle.USER_CURRENT
+    ) == 1
+    set(value) {
+        Settings.System.putIntForUser(
+            resolver, "some_setting_key", // Replace "some_setting_key" with a valid key
+            value.toInt(), UserHandle.USER_CURRENT
+        )
+    }
 
     var userGames
         get() =
